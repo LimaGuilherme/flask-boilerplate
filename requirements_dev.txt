@@ -1,0 +1,4 @@
+mock
+coverage==4.0.3
+python-coveralls==2.9.1
+testtools==2.3.0
