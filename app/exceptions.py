@@ -16,3 +16,7 @@ class NotFound(Exception):
 
 class RepositoryError(Exception):
     pass
+
+
+class ConfigClassNotFound(Exception):
+    pass

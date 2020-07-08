@@ -6,7 +6,7 @@ import re
 from flask import request, g, Response
 from flask_restful import Resource
 
-from app import models, config as config_module
+from app import  config as config_module
 
 config = config_module.get_config()
 

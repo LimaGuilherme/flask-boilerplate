@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from tests.unit import base
-from app import config as config_module
+from app import config as config_module, exceptions
 
 config = config_module.get_config()
 
@@ -24,8 +24,8 @@ class ProductionConfigTest(base.TestCase):
         super(ProductionConfigTest, self).setUp()
         self.config = config
 
-    def test_has_AMBIENTE(self):
-        self.assertTrue(hasattr(self.config, 'AMBIENTE'))
+    def test_has_ENVIRONMENT(self):
+        self.assertTrue(hasattr(self.config, 'ENVIRONMENT'))
 
 
 class StagingConfigTest(base.TestCase):
@@ -34,8 +34,8 @@ class StagingConfigTest(base.TestCase):
         super(StagingConfigTest, self).setUp()
         self.config = config
 
-    def test_has_AMBIENTE(self):
-        self.assertTrue(hasattr(self.config, 'AMBIENTE'))
+    def test_has_ENVIRONMENT(self):
+        self.assertTrue(hasattr(self.config, 'ENVIRONMENT'))
 
     def test_has_DEBUG(self):
         self.assertTrue(hasattr(self.config, 'DEBUG'))
@@ -50,8 +50,8 @@ class DevelopmentConfigTest(base.TestCase):
         super(DevelopmentConfigTest, self).setUp()
         self.config = config
 
-    def test_has_AMBIENTE(self):
-        self.assertTrue(hasattr(self.config, 'AMBIENTE'))
+    def test_has_ENVIRONMENT(self):
+        self.assertTrue(hasattr(self.config, 'ENVIRONMENT'))
 
     def test_has_DEVELOPMENT(self):
         self.assertTrue(hasattr(self.config, 'DEVELOPMENT'))
@@ -78,8 +78,8 @@ class SandboxConfigTest(base.TestCase):
         super(SandboxConfigTest, self).setUp()
         self.config = config
 
-    def test_has_AMBIENTE(self):
-        self.assertTrue(hasattr(self.config, 'AMBIENTE'))
+    def test_has_ENVIRONMENT(self):
+        self.assertTrue(hasattr(self.config, 'ENVIRONMENT'))
 
     def test_has_DEBUG(self):
         self.assertTrue(hasattr(self.config, 'DEBUG'))
@@ -92,3 +92,11 @@ class SandboxConfigTest(base.TestCase):
 
     def test_has_SQLALCHEMY_RECORD_QUERIES_default_true(self):
         self.assertTrue(self.config.SQLALCHEMY_RECORD_QUERIES)
+
+
+class GetConfigTest(base.TestCase):
+
+    @base.mock.patch('app.config.import_module')
+    def test_should_call_import_module_to_import_config_module(self, import_module_mock):
+        config_module.get_config()
+        self.assertTrue(import_module_mock.called)
