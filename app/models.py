@@ -21,58 +21,16 @@ class AbstractModel(object):
         db.session.add(instance)
 
     @classmethod
-    def filter(cls, **kwargs):
-        return cls.query.filter_by(**kwargs)
-
-    @classmethod
-    def get_list(cls, *args, **kwargs):
-        return cls.query.filter_by()
-
-    @classmethod
-    def get_item(cls, item_id):
-        item = cls.query.get(item_id)
-        if not item:
-            raise exceptions.NotFound
-        else:
-            return item
-
-    @classmethod
-    def get_all_ids_in(cls, items_id):
-        return db.session.query(cls).filter(cls.id.in_(items_id)).all()
-
-    @classmethod
-    def one_or_none(cls, **kwargs):
-        return cls.filter(**kwargs).one_or_none()
-
-    @classmethod
-    def slugify(cls, value):
-        slug = unicodedata.normalize('NFKD', value)
-        slug = slug.replace(' ', '-')
-        slug = slug.encode('ascii', 'ignore').lower()
-        return slug
-
-    @classmethod
     def close_session(cls):
         db.session.remove()
 
-    def delete_db(self):
-        db.session.delete(self)
+    @classmethod
+    def commit_in_batch(cls):
         db.session.commit()
-
-    def save_db(self, commit=True):
-        db.session.add(self)
-        if commit:
-            db.session.commit()
-        else:
-            db.session.flush()
+        db.session.flush()
 
     def commit_session(self):
         db.session.commit()
-
-    @classmethod
-    def commit_batch(cls):
-        db.session.commit()
-        db.session.flush()
 
     @classmethod
     def create_from_json(cls, json_data):
@@ -94,6 +52,52 @@ class AbstractModel(object):
         except Exception as ex:
             raise cls.RepositoryError(str(ex))
 
+    def delete_db(self):
+        db.session.delete(self)
+        db.session.commit()
+
+    @classmethod
+    def filter(cls, **kwargs):
+        return cls.query.filter_by(**kwargs)
+
+    @classmethod
+    def get_list(cls, *args, **kwargs):
+        return cls.query.filter_by()
+
+    @classmethod
+    def get_item(cls, item_id):
+        item = cls.query.get(item_id)
+        if not item:
+            raise exceptions.NotFound
+        else:
+            return item
+
+    @classmethod
+    def get_all_ids_in(cls, items_id):
+        return db.session.query(cls).filter(cls.id.in_(items_id)).all()
+
+    @classmethod
+    def roll_back_session(cls):
+        db.session.rollback()
+
+    @classmethod
+    def one_or_none(cls, **kwargs):
+        return cls.filter(**kwargs).one_or_none()
+
+    @classmethod
+    def slugify(cls, value):
+        slug = unicodedata.normalize('NFKD', value)
+        slug = slug.replace(' ', '-')
+        slug = slug.encode('ascii', 'ignore').lower()
+        return slug
+
+    def save_db(self, commit=True):
+        db.session.add(self)
+        if commit:
+            db.session.commit()
+        else:
+            db.session.flush()
+
     @classmethod
     def update_from_json(cls, item_id, json_data):
         try:
@@ -102,7 +106,7 @@ class AbstractModel(object):
             instance.save_db()
             return instance
         except db.IntegrityError as ex:
-            raise cls.RepositoryError(ex.message)
+            raise exceptions.RepositoryError(str(ex))
 
     @classmethod
     def save_in_batch(cls, items):
@@ -112,10 +116,6 @@ class AbstractModel(object):
     def set_values(self, json_data):
         for key, value in json_data.items():
             setattr(self, key, json_data.get(key, getattr(self, key)))
-
-    @classmethod
-    def roll_back_session(cls):
-        db.session.rollback()
 
 
 class SomeTable(db.Model, AbstractModel):

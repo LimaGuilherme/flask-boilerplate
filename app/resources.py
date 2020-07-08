@@ -100,14 +100,13 @@ class ResourceBase(Resource):
 
 class SomeResource(ResourceBase):
 
-    @login_required
-    def get(self, item_id=None):
-        if item_id:
+    def get(self, something_id=None):
+        if something_id:
             return self.return_ok()
         return self.return_ok()
 
     @not_allowed
-    def delete(self, item_id):
+    def delete(self, something_id):
         pass
 
     @not_allowed
@@ -115,5 +114,5 @@ class SomeResource(ResourceBase):
         pass
 
     @not_allowed
-    def put(self, item_id):
+    def put(self, something_id):
         pass

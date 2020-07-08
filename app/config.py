@@ -2,8 +2,10 @@
 """
 Config File for enviroment variables
 """
+from __future__ import unicode_literals
 
 import os
+
 from importlib import import_module
 
 
@@ -15,21 +17,28 @@ class Config(object):
     TESTING = False
     DEVELOPMENT = False
     CSRF_ENABLED = True
-    SECRET_KEY = os.environ['SECRET_KEY']
-    API_TOKEN = os.environ['API_TOKEN']
+    AMBIENTE = None
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    def __init__(self):
+        if self.AMBIENTE is None:
+            raise TypeError('You should use one of the specialized config class')
+        self.SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+        self.REDIS_URL = os.environ['REDIS_URL']
 
 
 class ProductionConfig(Config):
     """
     Production Config... this is the real thing
     """
-    DEBUG = False
+    AMBIENTE = 'production'
 
 
 class StagingConfig(Config):
     """
     Staging Config is for... staging things
     """
+    AMBIENTE = 'staging'
     DEBUG = True
 
 
@@ -37,14 +46,26 @@ class DevelopmentConfig(Config):
     """
     Development Config... this is your home developer!
     """
+    AMBIENTE = 'development'
     DEVELOPMENT = True
     DEBUG = True
+    SQLALCHEMY_RECORD_QUERIES = True
 
 
-class TestingConfig(Config):
+class SandboxConfig(Config):
+    """
+    Development Config... this is your home developer!
+    """
+    AMBIENTE = 'sandbox'
+    DEBUG = True
+    SQLALCHEMY_RECORD_QUERIES = True
+
+
+class TestingConfig(DevelopmentConfig):
     """
     Test Config... You should be testing right now instead reading docs!!!
     """
+    AMBIENTE = 'test'
     TESTING = True
     KEY_ON_TEST = 'KEY ON TEST'
 

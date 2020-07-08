@@ -1,25 +1,16 @@
 import os
 
-from flask import Flask, g, request, Response
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
-from app import api, database, config as config_module, apm, commands
-
-from app.tasks import senai
-
+from app import api, commands, database, config as config_module
 
 config = config_module.get_config()
-async_mode = None
 
 web_app = Flask(__name__)
 web_app.config.from_object(config)
 
 database.AppRepository.db = SQLAlchemy(web_app)
-
-senai.make_worker(web_app)
-worker = senai.worker
-senai.register_tasks(worker)
-
 api.create_api(web_app)
 
 commands.register(web_app)

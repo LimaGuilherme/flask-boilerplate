@@ -8,4 +8,4 @@ def create_api(app):
     from app import resources
     api = Api(app)
 
-    api.add_resource(resources.SomeResource, '/api/something')
+    api.add_resource(resources.SomeResource, '/api/something', '/api/something/<int:something_id>')

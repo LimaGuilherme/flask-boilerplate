@@ -12,3 +12,7 @@ class UnexpectedError(Exception):
 
 class NotFound(Exception):
     pass
+
+
+class RepositoryError(Exception):
+    pass
