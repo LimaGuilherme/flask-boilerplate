@@ -35,8 +35,8 @@ jobs:
     - name: Test with pytest
       env:
         APP_SETTINGS: app.config.TestingConfig
-         DATABASE_URL=postgresql+psycopg2://flask:flask@localhost/flask
-         LOG_DIR=/home/<user>/logs
-         REDIS_URL=redis://localhost:6379
+        DATABASE_URL: postgresql+psycopg2://flask:flask@localhost/flask
+        LOG_DIR: /home/<user>/logs
+        REDIS_URL: redis://localhost:6379
       run: |
         pytest
