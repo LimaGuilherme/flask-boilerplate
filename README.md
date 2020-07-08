@@ -1,3 +1,4 @@
+[![Coverage Status](https://coveralls.io/repos/github/LimaGuilherme/flask-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/LimaGuilherme/flask-boilerplate?branch=master)
 
  # Requirements
     Linux
