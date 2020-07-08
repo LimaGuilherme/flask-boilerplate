@@ -15,7 +15,6 @@ class TestCase(unittest.TestCase):
     url = None
     payload = {}
 
-
     def setUp(self):
         database.AppRepository.db.create_all()
         self.__cookies = {}

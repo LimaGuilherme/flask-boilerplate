@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from tests.unit import base
-from app import resources, config as config_module
+from app import config as config_module
 
 config = config_module.get_config()
 
