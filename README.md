@@ -54,17 +54,7 @@ Create a .env file based on .env.sample, with your custom configuration (if nece
 * Coveralls - Python interface to coveralls.io API
 * coverage - Code coverage measurement for Python
 * Flask - The web framework used
-flask-CORS - A Flask extension for handling Cross Origin Resource Sharing (CORS), making cross-origin AJAX possible.
-Flask Migrate - an extension that handles SQLAlchemy database migrations for Flask applications using Alembic.
-Flask-RESTful - an extension for Flask that adds support for quickly building REST APIs
-gunicorn - a Python WSGI HTTP Server for UNIX
-mock - mock is a library for testing in Python. It allows you to replace parts of your system under test with mock objects and make assertions about how they have been used.
-passlib - comprehensive password hashing framework
-pip - Dependency Management
-Psycopg - PostgreSQL adapter for the Python programming language
-SQLAlchemy - Python SQL toolkit and Object Relational Mapper
-SQLAlchemy-Utils - Various utility functions for SQLAlchemy.
-testtools - testtools is a set of extensions to Python’s standard unittest module.
+
 
 # Authors
 Guilherme Lima - Initial work
