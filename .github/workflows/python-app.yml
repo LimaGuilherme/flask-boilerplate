@@ -33,5 +33,10 @@ jobs:
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
+       env:
+         APP_SETTINGS=app.config.DevelopmentConfig
+         DATABASE_URL=postgresql+psycopg2://flask:flask@localhost/flask
+         LOG_DIR=/home/<user>/logs
+         REDIS_URL=redis://localhost:6379
       run: |
         pytest
