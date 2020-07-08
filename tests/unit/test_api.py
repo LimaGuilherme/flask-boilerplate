@@ -14,4 +14,5 @@ class ApiTest(base.TestCase):
         api_mock.return_value = api_instance
         api.create_api('APP')
         api_instance.add_resource.assert_any_call('SomeResource',
-                                                  '/api/something')
+                                                  '/api/something',
+                                                  '/api/something/<int:something_id>')
