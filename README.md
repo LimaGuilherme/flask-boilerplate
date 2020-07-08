@@ -1,5 +1,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/LimaGuilherme/flask-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/LimaGuilherme/flask-boilerplate?branch=master)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/d0489978ee823f5e53eb/maintainability)](https://codeclimate.com/github/LimaGuilherme/flask-boilerplate/maintainability)
+
  # Requirements
     Linux
     Python 3+
