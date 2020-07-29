@@ -2,6 +2,8 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/d0489978ee823f5e53eb/maintainability)](https://codeclimate.com/github/LimaGuilherme/flask-boilerplate/maintainability)
 
+![Python application](https://github.com/LimaGuilherme/flask-boilerplate/workflows/Python%20application/badge.svg)
+
  # Requirements
     Linux
     Python 3+
